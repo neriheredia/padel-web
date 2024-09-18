@@ -13,8 +13,28 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
       <body className="container m-auto grid min-h-screen grid-rows-[auto,1fr,auto] bg-background px-4 font-sans antialiased">
-        <header className="text-xl font-bold leading-[4rem]">
-          <Link href="/">padel-bialet</Link>
+        <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]" />
+        <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]" />
+        <header className="flex items-center justify-between">
+          <Link className="cursor-pointer text-xl font-bold leading-[4rem]" href="/">
+            Liga Bialet Masse
+          </Link>
+          <nav>
+            <ul className="flex gap-4 opacity-70">
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/jugadores">Jugadores</Link>
+              </li>
+              <li>
+                <Link href="/calendario">Calendario</Link>
+              </li>
+              <li>
+                <Link href="/general">Tabla General</Link>
+              </li>
+            </ul>
+          </nav>
         </header>
         <main className="py-8">{children}</main>
         <footer className="text-center leading-[4rem] opacity-70">

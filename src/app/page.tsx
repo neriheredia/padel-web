@@ -6,7 +6,7 @@ export default async function HomePage() {
   const matches = await api.match.list();
 
   return (
-    <Table>
+    <Table className="border">
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Equipo</TableHead>

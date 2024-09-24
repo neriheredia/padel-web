@@ -1,5 +1,5 @@
 import {URLS} from "@/constants/sheet";
-import {Calendar, General, Home, Players} from "@/types";
+import {Calendar, General, Players} from "@/types";
 
 const api = {
   players: {
@@ -50,7 +50,7 @@ const api = {
                 team2: team2 === "-" ? 0 : parseInt(team2),
                 setsWon1: parseInt(setsWon1),
                 setsWon2: parseInt(setsWon2),
-                results,
+                results: String(results),
                 winner: parseInt(winner),
                 points1: parseInt(points1),
                 points2: parseInt(points2),

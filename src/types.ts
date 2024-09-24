@@ -29,3 +29,14 @@ export interface General {
   player1: string;
   player2: string;
 }
+
+export interface Home {
+  groupA: {
+    personOne: string;
+    personTwo: string;
+  };
+  groupB: {
+    personOne: string;
+    personTwo: string;
+  };
+}

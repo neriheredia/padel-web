@@ -1,14 +1,12 @@
-import {Calendar, General, Players} from "@/types";
+import {URLS} from "@/constants/sheet";
+import {Calendar, General, Home, Players} from "@/types";
 
 const api = {
   players: {
-    list: async (): Promise<Players[]> => {
-      return fetch(
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQacrJb-AieSJ1VpQOWJb9vFnwHOAAf0qN-Yp8pDhH4x37nTWuM3YlWru9shfpR0ZprzbZjwrsxwJee/pub?gid=0&single=true&output=tsv",
-        {
-          next: {tags: ["matches"]},
-        },
-      )
+    list: async (url: string): Promise<Players[]> => {
+      return fetch(url, {
+        next: {tags: ["matches"]},
+      })
         .then((res) => res.text())
         .then((text) => {
           return text
@@ -33,13 +31,10 @@ const api = {
   },
 
   calendar: {
-    list: async (): Promise<Calendar[]> => {
-      return fetch(
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQacrJb-AieSJ1VpQOWJb9vFnwHOAAf0qN-Yp8pDhH4x37nTWuM3YlWru9shfpR0ZprzbZjwrsxwJee/pub?gid=19406315&single=true&output=tsv",
-        {
-          next: {tags: ["matches"]},
-        },
-      )
+    list: async (url: string): Promise<Calendar[]> => {
+      return fetch(url, {
+        next: {tags: ["matches"]},
+      })
         .then((res) => res.text())
         .then((text) => {
           return text
@@ -51,8 +46,8 @@ const api = {
 
               return {
                 date,
-                team1: parseInt(team1),
-                team2: parseInt(team2),
+                team1: team1 === "-" ? 0 : parseInt(team1),
+                team2: team2 === "-" ? 0 : parseInt(team2),
                 setsWon1: parseInt(setsWon1),
                 setsWon2: parseInt(setsWon2),
                 results,
@@ -65,15 +60,13 @@ const api = {
     },
   },
   general: {
-    list: async (): Promise<General[]> => {
-      const playersList = await api.players.list();
+    list: async ({url, type}: {url: string; type: string}): Promise<General[]> => {
+      const group = type === "A" ? URLS.groups.urlA : URLS.groups.urlB;
+      const playersList = await api.players.list(group);
 
-      return fetch(
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQacrJb-AieSJ1VpQOWJb9vFnwHOAAf0qN-Yp8pDhH4x37nTWuM3YlWru9shfpR0ZprzbZjwrsxwJee/pub?gid=277141680&single=true&output=tsv",
-        {
-          next: {tags: ["matches"]},
-        },
-      )
+      return fetch(url, {
+        next: {tags: ["matches"]},
+      })
         .then((res) => res.text())
         .then((text) => {
           return text
@@ -95,6 +88,32 @@ const api = {
               };
             });
         });
+    },
+  },
+  home: {
+    groupsLiders: async () => {
+      const generalA = await api.general.list({
+        url: URLS.general.urlA,
+        type: "A",
+      });
+
+      const generalB = await api.general.list({
+        url: URLS.general.urlB,
+        type: "B",
+      });
+
+      return {
+        groupA: {
+          team: generalA[0].team,
+          points: generalA[0].points,
+          players: `${generalA[0].player1} - ${generalA[0].player2}`,
+        },
+        groupB: {
+          team: generalB[0].team,
+          points: generalB[0].points,
+          players: `${generalB[0].player1} - ${generalB[0].player2}`,
+        },
+      };
     },
   },
 };

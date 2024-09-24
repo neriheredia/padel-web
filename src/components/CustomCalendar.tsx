@@ -3,8 +3,8 @@ import {Calendar} from "@/types";
 
 function CustomCalendar({calendar, title}: {calendar: Calendar[]; title: string}) {
   return (
-    <div className="mb-4 text-xl font-bold">
-      <h1 className="m-auto mb-4 max-w-4xl text-xl font-bold">{title}</h1>
+    <div className="m-auto mb-4 max-w-5xl text-xl font-bold">
+      <h1 className="m-auto mb-4 max-w-5xl text-xl font-bold">{title}</h1>
       <Table className="border">
         <TableHeader>
           <TableRow>

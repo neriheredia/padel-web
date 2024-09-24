@@ -14,7 +14,7 @@ export default async function CalendarPage() {
   });
 
   return (
-    <div className="grid grid-cols-1 gap-6">
+    <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
       <CustomGeneral general={generalA} title="Tabla General A" />
       <CustomGeneral general={generalB} title="Tabla General B" />
     </div>

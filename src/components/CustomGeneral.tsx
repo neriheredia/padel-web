@@ -3,9 +3,9 @@ import {General} from "@/types";
 
 function CustomGeneral({general, title}: {general: General[]; title: string}) {
   return (
-    <div className="min-w-4xl m-auto mb-4 text-xl font-bold">
-      <h1 className="m-auto mb-4 max-w-4xl text-xl font-bold">{title}</h1>
-      <Table className="m-auto max-w-4xl border">
+    <div className="m-auto mb-4 max-w-5xl text-xl font-bold">
+      <h1 className="m-auto mb-4 max-w-5xl text-xl font-bold">{title}</h1>
+      <Table className="border">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px] text-center">Posición</TableHead>

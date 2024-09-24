@@ -13,7 +13,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
       <body className="container m-auto grid min-h-screen grid-rows-[auto,1fr,auto] bg-background px-4 font-sans antialiased">
-        <header className="flex items-center justify-between border-b border-gray-800 p-4">
+        <header className="flex flex-col items-center justify-between border-b border-gray-800 p-4 sm:flex-row">
           <Link className="cursor-pointer text-xl font-bold leading-[4rem]" href="/">
             Liga Bialet Masse
           </Link>

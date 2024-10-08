@@ -4,10 +4,10 @@ const stages = [
   {
     title: "Cuartos de Final",
     matches: [
-      ["Equipo A", "Equipo B"],
-      ["Equipo C", "Equipo D"],
-      ["Equipo E", "Equipo F"],
-      ["Equipo G", "Equipo H"],
+      ["Equipo <?>", "Equipo <?>"],
+      ["Equipo <?>", "Equipo <?>"],
+      ["Equipo <?>", "Equipo <?>"],
+      ["Equipo <?>", "Equipo <?>"],
     ],
   },
   {
@@ -67,24 +67,13 @@ export default async function HomePage() {
           <div key={stageIdx}>
             <h2 className="mb-4 text-lg font-bold">{stage.title}</h2>
             <Table className="w-full">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Equipo 1</TableHead>
-                  <TableHead>Equipo 2</TableHead>
+              {stage.matches.map(([team1, team2], matchIdx) => (
+                <TableRow key={matchIdx}>
+                  <TableHead>{team1}</TableHead>
+                  <TableHead>{team2}</TableHead>
                   <TableHead className="text-center">Resultado</TableHead>
                 </TableRow>
-              </TableHeader>
-              {/* <TableBody>
-                {stage.matches.map(([team1, team2], matchIdx) => (
-                  <TableRow key={matchIdx}>
-                    <TableCell>{team1}</TableCell>
-                    <TableCell>{team2}</TableCell>
-                    <TableCell className="text-center">
-                      <input className="w-16 border text-center" placeholder="0 - 0" type="text" />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody> */}
+              ))}
             </Table>
           </div>
         ))}

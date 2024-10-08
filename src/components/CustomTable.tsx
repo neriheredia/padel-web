@@ -14,8 +14,8 @@ function CustomTable({players, title}: {players: Players[]; title: string}) {
             <TableHead>Partidos Jugados</TableHead>
             <TableHead>Partidos Ganados</TableHead>
             <TableHead>Partidos Perdidos</TableHead>
-            <TableHead>Puntos a Favor</TableHead>
-            <TableHead>Puntos en Contra</TableHead>
+            <TableHead className="text-center">Games a Favor</TableHead>
+            <TableHead className="text-center">Games en Contra</TableHead>
             <TableHead className="text-right">Puntos</TableHead>
           </TableRow>
         </TableHeader>

@@ -1,9 +1,4 @@
-import Link from "next/link";
-
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
-import api from "@/lib/api";
+import {Table, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 
 const stages = [
   {
@@ -26,8 +21,6 @@ const stages = [
 ];
 
 export default async function HomePage() {
-  const data = await api.home.groupsLiders();
-
   return (
     <main className="container mx-auto mt-8 px-4">
       <section className="mb-12 text-center">
@@ -35,7 +28,7 @@ export default async function HomePage() {
         <p className="text-xl text-gray-400">La mejor liga de pádel de la región</p>
       </section>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      {/* <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card className="border-gray-800 bg-gray-900">
           <CardHeader>
             <CardTitle>Líder Actual</CardTitle>
@@ -59,15 +52,15 @@ export default async function HomePage() {
             <p className="text-sm text-gray-400">{data.groupB.players}</p>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
 
-      <div className="mt-12 text-center">
+      {/* <div className="mt-12 text-center">
         <Link href="/general">
           <Button className="bg-white text-black hover:bg-gray-200" variant="outline">
             Ver Tabla Completa
           </Button>
         </Link>
-      </div>
+      </div> */}
       <div className="grid grid-cols-1 gap-8">
         {stages.map((stage, stageIdx) => (
           // eslint-disable-next-line react/no-array-index-key

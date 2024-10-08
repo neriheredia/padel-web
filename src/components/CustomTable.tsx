@@ -14,12 +14,24 @@ function CustomTable({players, title}: {players: Players[]; title: string}) {
             <TableHead>Partidos Jugados</TableHead>
             <TableHead>Partidos Ganados</TableHead>
             <TableHead>Partidos Perdidos</TableHead>
+            <TableHead>Puntos a Favor</TableHead>
+            <TableHead>Puntos en Contra</TableHead>
             <TableHead className="text-right">Puntos</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {players.map(
-            ({teamId, player1, player2, matchesLost, matchesPlayed, points, matchesWon}) => (
+            ({
+              teamId,
+              player1,
+              player2,
+              matchesLost,
+              matchesPlayed,
+              points,
+              matchesWon,
+              pointsInFavor,
+              pointsAgainst,
+            }) => (
               <TableRow key={teamId}>
                 <TableCell className="text-center">{teamId}</TableCell>
                 <TableCell className="text-center">{player1}</TableCell>
@@ -27,6 +39,8 @@ function CustomTable({players, title}: {players: Players[]; title: string}) {
                 <TableCell className="text-center">{matchesPlayed}</TableCell>
                 <TableCell className="text-center">{matchesWon}</TableCell>
                 <TableCell className="text-center">{matchesLost}</TableCell>
+                <TableCell className="text-center">{pointsInFavor}</TableCell>
+                <TableCell className="text-center">{pointsAgainst}</TableCell>
                 <TableCell className="text-center">{points}</TableCell>
               </TableRow>
             ),

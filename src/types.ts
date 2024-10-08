@@ -5,7 +5,10 @@ export interface Players {
   matchesPlayed: number;
   matchesWon: number;
   matchesLost: number;
+  pointsInFavor: number;
+  pointsAgainst: number;
   points: number;
+  group: string;
 }
 
 export interface Calendar {

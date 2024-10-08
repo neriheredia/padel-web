@@ -1,6 +1,10 @@
 import {URLS} from "@/constants/sheet";
 import {Calendar, General, Players} from "@/types";
 
+function cleanString(input: string) {
+  return input.replace(/\r/g, "");
+}
+
 const api = {
   players: {
     list: async (url: string): Promise<Players[]> => {
@@ -13,8 +17,18 @@ const api = {
             .split("\n")
             .slice(1)
             .map((row) => {
-              const [teamId, player1, player2, matchesPlayed, matchesWon, matchesLost, points] =
-                row.split("\t");
+              const [
+                teamId,
+                player1,
+                player2,
+                matchesPlayed,
+                matchesWon,
+                matchesLost,
+                pointsInFavor,
+                pointsAgainst,
+                points,
+                group,
+              ] = row.split("\t");
 
               return {
                 teamId: parseInt(teamId),
@@ -24,6 +38,9 @@ const api = {
                 matchesWon: parseInt(matchesWon),
                 matchesLost: parseInt(matchesLost),
                 points: parseInt(points),
+                pointsInFavor: parseInt(pointsInFavor),
+                pointsAgainst: parseInt(pointsAgainst),
+                group: cleanString(group),
               };
             });
         });

@@ -25,12 +25,12 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
               <li>
                 <Link href="/jugadores">Jugadores</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/calendario">Calendario</Link>
               </li>
               <li>
                 <Link href="/general">Tabla General</Link>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </header>

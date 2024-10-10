@@ -1,21 +1,25 @@
-import {URLS} from "@/constants/sheet";
-import {Calendar, General, Players} from "@/types";
+import {Players} from "@/types";
 
 function cleanString(input: string) {
   return input.replace(/\r/g, "");
 }
 
+interface GroupedTeams {
+  group: string;
+  teams: Players[];
+}
+
 const api = {
   players: {
-    list: async (url: string): Promise<Players[]> => {
+    list: async (url: string): Promise<GroupedTeams[]> => {
       return fetch(url, {
         next: {tags: ["matches"]},
       })
         .then((res) => res.text())
         .then((text) => {
-          return text
+          const players: Players[] = text
             .split("\n")
-            .slice(1)
+            .slice(1) // Para omitir el encabezado si existe
             .map((row) => {
               const [
                 teamId,
@@ -43,94 +47,34 @@ const api = {
                 group: cleanString(group),
               };
             });
-        });
-    },
-  },
 
-  calendar: {
-    list: async (url: string): Promise<Calendar[]> => {
-      return fetch(url, {
-        next: {tags: ["matches"]},
-      })
-        .then((res) => res.text())
-        .then((text) => {
-          return text
-            .split("\n")
-            .slice(1)
-            .map((row) => {
-              const [date, team1, team2, setsWon1, setsWon2, results, winner, points1, points2] =
-                row.split("\t");
+          const groupedTeams: GroupedTeams[] = players.reduce(
+            (acc: GroupedTeams[], team: Players) => {
+              const group = acc.find((g) => g.group === team.group);
 
-              return {
-                date,
-                team1: team1 === "-" ? 0 : parseInt(team1),
-                team2: team2 === "-" ? 0 : parseInt(team2),
-                setsWon1: parseInt(setsWon1),
-                setsWon2: parseInt(setsWon2),
-                results: String(results),
-                winner: parseInt(winner),
-                points1: parseInt(points1),
-                points2: parseInt(points2),
-              };
+              if (group) {
+                group.teams.push(team);
+              } else {
+                acc.push({group: team.group, teams: [team]});
+              }
+
+              return acc;
+            },
+            [],
+          );
+
+          groupedTeams.forEach((group) => {
+            group.teams.sort((a, b) => {
+              if (b.points === a.points) {
+                return b.pointsInFavor - a.pointsInFavor;
+              }
+
+              return b.points - a.points;
             });
+          });
+
+          return groupedTeams;
         });
-    },
-  },
-  general: {
-    list: async ({url, type}: {url: string; type: string}): Promise<General[]> => {
-      const group = type === "A" ? URLS.groups.urlA : URLS.groups.urlB;
-      const playersList = await api.players.list(group);
-
-      return fetch(url, {
-        next: {tags: ["matches"]},
-      })
-        .then((res) => res.text())
-        .then((text) => {
-          return text
-            .split("\n")
-            .slice(1)
-            .map((row) => {
-              const [position, team, points, games, gamesWin] = row.split("\t");
-
-              const teamPlayers = playersList.find((p) => Number(p.teamId) === Number(team));
-
-              return {
-                position: parseInt(position),
-                team: parseInt(team),
-                points: parseInt(points),
-                games: parseInt(games),
-                gamesWin: parseInt(gamesWin),
-                player1: teamPlayers?.player1 || "",
-                player2: teamPlayers?.player2 || "",
-              };
-            });
-        });
-    },
-  },
-  home: {
-    groupsLiders: async () => {
-      const generalA = await api.general.list({
-        url: URLS.general.urlA,
-        type: "A",
-      });
-
-      const generalB = await api.general.list({
-        url: URLS.general.urlB,
-        type: "B",
-      });
-
-      return {
-        groupA: {
-          team: generalA[0].team,
-          points: generalA[0].points,
-          players: `${generalA[0].player1} - ${generalA[0].player2}`,
-        },
-        groupB: {
-          team: generalB[0].team,
-          points: generalB[0].points,
-          players: `${generalB[0].player1} - ${generalB[0].player2}`,
-        },
-      };
     },
   },
 };

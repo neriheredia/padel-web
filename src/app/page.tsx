@@ -37,7 +37,7 @@ export default async function HomePage() {
   return (
     <main className="container mx-auto mt-8 px-4">
       <section className="mb-12 text-center">
-        <h2 className="mb-4 text-4xl font-bold">Bienvenidos a la Liga Bialet Masset</h2>
+        <h2 className="mb-4 text-4xl font-bold">Bienvenidos a la Liga Bialet Massé</h2>
         <p className="text-xl text-gray-400">La mejor liga de pádel de la región</p>
       </section>
 

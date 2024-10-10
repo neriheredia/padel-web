@@ -1,6 +1,19 @@
-import {Table, TableHead, TableHeader, TableRow} from "@/components/ui/table";
+import {Table, TableHead, TableRow} from "@/components/ui/table";
 
 const stages = [
+  {
+    title: "Octavos de Final",
+    matches: [
+      ["Equipo <?>", "Equipo <?>"],
+      ["Equipo <?>", "Equipo <?>"],
+      ["Equipo <?>", "Equipo <?>"],
+      ["Equipo <?>", "Equipo <?>"],
+      ["Equipo <?>", "Equipo <?>"],
+      ["Equipo <?>", "Equipo <?>"],
+      ["Equipo <?>", "Equipo <?>"],
+      ["Equipo <?>", "Equipo <?>"],
+    ],
+  },
   {
     title: "Cuartos de Final",
     matches: [

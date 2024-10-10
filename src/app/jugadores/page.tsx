@@ -23,6 +23,17 @@ export default async function PayersPage() {
     return acc;
   }, []);
 
+  groupedTeams.forEach((group) => {
+    group.teams.sort((a, b) => {
+      if (b.points === a.points) {
+        return b.pointsInFavor - a.pointsInFavor;
+      }
+
+      return b.points - a.points;
+    });
+  });
+  console.log(groupedTeams[3]);
+
   return (
     <div className="grid grid-cols-1 gap-6">
       {groupedTeams.map(({group, teams}) => (

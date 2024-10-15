@@ -19,7 +19,7 @@ const api = {
         .then((text) => {
           const players: Players[] = text
             .split("\n")
-            .slice(1) // Para omitir el encabezado si existe
+            .slice(1)
             .map((row) => {
               const [
                 teamId,
@@ -66,6 +66,10 @@ const api = {
           groupedTeams.forEach((group) => {
             group.teams.sort((a, b) => {
               if (b.points === a.points) {
+                if (b.pointsInFavor === a.pointsInFavor) {
+                  return a.pointsAgainst - b.pointsAgainst;
+                }
+
                 return b.pointsInFavor - a.pointsInFavor;
               }
 
